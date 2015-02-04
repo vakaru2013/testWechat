@@ -11,7 +11,7 @@ def app(environ, start_response):
     
     # 将environ中所有的键值对输出
     body+=inputs
-    body='\n'.join(body)
+    body='\r\n\r\n'.join(body)
     return [body]
 
 from bae.core.wsgi import WSGIApplication
