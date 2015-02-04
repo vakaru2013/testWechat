@@ -7,7 +7,7 @@ def app(environ, start_response):
     body=["Welcome to Baidu Cloud!\n"]
     
     # 遍历environ字典
-    inputs=["%s=%s\n" % (k,x) for (k,x) in environ.items()]
+    inputs=["%s==%s\n" % (k,x) for (k,x) in environ.items()]
     
     # 将environ中所有的键值对输出
     body+=inputs
