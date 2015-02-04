@@ -16,7 +16,7 @@ def app(environ, start_response):
     
     # 如果query string中没有echostr就返回下面的字符串
     body=["Welcome to Baidu Cloud!\n This is test.py!\n"]
-    return [body]
+    return body
 
 from bae.core.wsgi import WSGIApplication
 application = WSGIApplication(app)
