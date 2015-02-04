@@ -5,7 +5,12 @@ def app(environ, start_response):
     headers = [('Content-type', 'text/html')]
     start_response(status, headers)
     body=["Welcome to Baidu Cloud!\n"]
-    body.append(str(environ))
+    
+    # 遍历environ字典
+    inputs=["%s=%s\n" % (k,x) for (k,x) in environ.items()]
+    
+    # 将environ中所有的键值对输出
+    body+=inputs
     return body
 
 from bae.core.wsgi import WSGIApplication
