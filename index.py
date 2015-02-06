@@ -33,10 +33,6 @@ def app(environ, start_response):
         if(signature==temp):
             # 这是微信发来的消息，所以返回echostr
             return [echostr]
-    
-    # 下面的调试代码能够将environ中的所有的键值对都输出，仅用于调试目的
-    body=[str(environ)]
-    return body
 
     if('POST'==environ.get('REQUEST_METHOD','')):    
         # the environment variable CONTENT_LENGTH may be empty or missing
@@ -46,6 +42,10 @@ def app(environ, start_response):
             request_body_size = 0
         request_body=environ['wsgi.input'].read(request_body_size)
         return [request_body]
+        
+    # 下面的调试代码能够将environ中的所有的键值对都输出，仅用于调试目的
+    body=[str(environ)]
+    return body
         
     # 如果上面的情况都不是，就返回下面的字符串
     body=["Welcome to Baidu Cloud!\n This is test.py!\n"]
