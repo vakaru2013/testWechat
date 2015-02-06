@@ -27,7 +27,7 @@ def app(environ, start_response):
         signature = d.get('signature', [''])[0]
         # sha1是一个类型
         temp=[token,timestamp,nonce]
-        temp=temp.sort()
+        temp.sort()
         temp=''.join(temp)
         temp=sha1(temp).hexdigest()
         if(signature==temp):
