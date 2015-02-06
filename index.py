@@ -26,7 +26,8 @@ def app(environ, start_response):
         nonce = d.get('nonce', [''])[0]
         signature = d.get('signature', [''])[0]
         # sha1是一个类型
-        if(signature==sha1(''.join([token,timestamp,nonce].sort())).hexdigest()):
+        temp=[token,timestamp,nonce]
+        if(signature==sha1(''.join(temp.sort())).hexdigest()):
             # 这是微信发来的消息，所以返回echostr
             return [echostr]
     
