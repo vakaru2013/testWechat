@@ -40,6 +40,8 @@ def app(environ, start_response):
             request_body_size = int(environ.get('CONTENT_LENGTH', 0))
         except (ValueError):
             request_body_size = 0
+            
+        # 这就是微信发来的消息的消息体
         request_body=environ['wsgi.input'].read(request_body_size)
         return [request_body]
         
