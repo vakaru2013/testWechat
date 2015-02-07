@@ -21,10 +21,10 @@ def app(environ, start_response):
         # 2. 将三个参数字符串拼接成一个字符串进行sha1加密
         # 3. 开发者获得加密后的字符串可与signature对比，标识该请求来源于微信
         token='hello'
-        echostr = d.get('echostr', [''])[0]
-        timestamp = d.get('timestamp', [''])[0]
-        nonce = d.get('nonce', [''])[0]
-        signature = d.get('signature', [''])[0]
+        echostr = escape(d.get('echostr', [''])[0])
+        timestamp = escape(d.get('timestamp', [''])[0])
+        nonce = escape(d.get('nonce', [''])[0])
+        signature = escape(d.get('signature', [''])[0])
         # sha1是一个类型
         temp=[token,timestamp,nonce]
         temp.sort()
@@ -42,7 +42,8 @@ def app(environ, start_response):
             request_body_size = 0
             
         # 这就是微信发来的消息的消息体
-        request_body=environ['wsgi.input'].read(request_body_size)
+        request_body="content length: %s" % request_body_size
+        request_body+=escape(environ['wsgi.input'].read(request_body_size))
         return [request_body]
         
     # 下面的调试代码能够将environ中的所有的键值对都输出，仅用于调试目的
