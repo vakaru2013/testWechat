@@ -43,7 +43,7 @@ def app(environ, start_response):
             
         # 这就是微信发来的消息的消息体
         request_body="content length: [%d] ---" % request_body_size
-        request_body+=escape(environ['wsgi.input'].read(request_body_size))
+        request_body+=environ['wsgi.input'].read(request_body_size)
         return [request_body]
         
     # 下面的调试代码能够将environ中的所有的键值对都输出，仅用于调试目的
