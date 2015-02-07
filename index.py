@@ -42,7 +42,7 @@ def app(environ, start_response):
             request_body_size = 0
             
         # 这就是微信发来的消息的消息体
-        request_body="content length: %s" % request_body_size
+        request_body="content length: [%d] ---" % request_body_size
         request_body+=escape(environ['wsgi.input'].read(request_body_size))
         return [request_body]
         
