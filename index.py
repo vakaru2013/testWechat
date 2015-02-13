@@ -3,10 +3,14 @@
 from cgi import parse_qs, escape
 from hashlib import sha1
 
+# 解析微信的xml格式的handler
+from wechatXML import *
+
+import time
+        
 def app(environ, start_response):
     status = '200 OK'
-    headers = [('Content-type', 'text/html')]
-    start_response(status, headers)
+    headers = [('Content-type', 'text/plain')]
     
     if('GET'==environ.get('REQUEST_METHOD','')):
         # 取出query string的值
@@ -30,8 +34,10 @@ def app(environ, start_response):
         temp.sort()
         temp=''.join(temp)
         temp=sha1(temp).hexdigest()
+        
         if(signature==temp):
             # 这是微信发来的消息，所以返回echostr
+            start_response(status, headers)
             return [echostr]
 
     if('POST'==environ.get('REQUEST_METHOD','')):    
@@ -42,16 +48,53 @@ def app(environ, start_response):
             request_body_size = 0
             
         # 这就是微信发来的消息的消息体
-        request_body="content length: [%d] ---" % request_body_size
-        request_body+=environ['wsgi.input'].read(request_body_size)
-        return [request_body]
+        request_body=environ['wsgi.input'].read(request_body_size)
+        # <xml>
+        # <ToUserName><![CDATA[toUser]]></ToUserName>
+        # <FromUserName><![CDATA[fromUser]]></FromUserName> 
+        # <CreateTime>1348831860</CreateTime>
+        # <MsgType><![CDATA[text]]></MsgType>
+        # <Content><![CDATA[this is a test]]></Content>
+        # <MsgId>1234567890123456</MsgId>
+        # </xml>
+        
+        # 解析xml
+        hdl=WechatXmlHandler()
+        parseString(request_body,hdl)
+        
+        
+        # 解析出消息的内容
+        # 编辑回复消息文本，回复
+        # <xml>
+        # <ToUserName><![CDATA[toUser]]></ToUserName>
+        # <FromUserName><![CDATA[fromUser]]></FromUserName>
+        # <CreateTime>12345678</CreateTime>
+        # <MsgType><![CDATA[text]]></MsgType>
+        # <Content><![CDATA[你好]]></Content>
+        # </xml>
+        
+        reply=( '<xml>'
+                '<ToUserName><![CDATA[{1}]]></ToUserName>'
+                '<FromUserName><![CDATA[{2}]]></FromUserName>'
+                '<CreateTime>{3}</CreateTime>'
+                '<MsgType><![CDATA[text]]></MsgType>'
+                '<Content><![CDATA[{4}]]></Content>'
+                '</xml>' )
+        reply=reply.format(hdl.content_['FromUserName'],hdl.content_['ToUserName'],int(time.time()),"hello world!")
+        
+        # 指定为xml，并且指定为utf-8编码，以防止乱码
+        headers = [('Content-type', 'text/xml')]
+        start_response(status, headers)
+        return [reply]
         
     # 下面的调试代码能够将environ中的所有的键值对都输出，仅用于调试目的
     body=[str(environ)]
+    start_response(status, headers)
     return body
         
     # 如果上面的情况都不是，就返回下面的字符串
     body=["Welcome to Baidu Cloud!\n This is test.py!\n"]
+    start_response(status, headers)
     return body
 
 from bae.core.wsgi import WSGIApplication
