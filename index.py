@@ -74,11 +74,11 @@ def app(environ, start_response):
         # </xml>
         
         reply=( '<xml>'
-                '<ToUserName><![CDATA[{1}]]></ToUserName>'
-                '<FromUserName><![CDATA[{2}]]></FromUserName>'
-                '<CreateTime>{3}</CreateTime>'
+                '<ToUserName><![CDATA[{0}]]></ToUserName>'
+                '<FromUserName><![CDATA[{1}]]></FromUserName>'
+                '<CreateTime>{2}</CreateTime>'
                 '<MsgType><![CDATA[text]]></MsgType>'
-                '<Content><![CDATA[{4}]]></Content>'
+                '<Content><![CDATA[{3}]]></Content>'
                 '</xml>' )
         reply=reply.format(hdl.content_['FromUserName'],hdl.content_['ToUserName'],int(time.time()),"hello world!")
         
