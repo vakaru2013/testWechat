@@ -81,9 +81,11 @@ def app(environ, start_response):
                 '<Content><![CDATA[{3}]]></Content>'
                 '</xml>' )
 
-        rtext='hello world!'        
-        if(hdl.content_['Content']=='我是宁宁'):
-            rtext='我是宋伟'
+        # 中文导致异常？
+        # rtext='hello world!'
+        # if(hdl.content_['Content']=='我是宁宁'):
+        #     rtext='我是宋伟'
+        rtext=hdl.content_['Content']
         
         reply=reply.format(hdl.content_['FromUserName'],hdl.content_['ToUserName'],int(time.time()),rtext)
         
