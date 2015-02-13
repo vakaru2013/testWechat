@@ -80,7 +80,12 @@ def app(environ, start_response):
                 '<MsgType><![CDATA[text]]></MsgType>'
                 '<Content><![CDATA[{3}]]></Content>'
                 '</xml>' )
-        reply=reply.format(hdl.content_['FromUserName'],hdl.content_['ToUserName'],int(time.time()),"hello world!")
+
+        rtext='hello world!'        
+        if(hdl.content_['Content']=='我是宁宁'):
+            rtext='我是宋伟'
+        
+        reply=reply.format(hdl.content_['FromUserName'],hdl.content_['ToUserName'],int(time.time()),rtext)
         
         # 指定为xml，并且指定为utf-8编码，以防止乱码
         headers = [('Content-type', 'text/xml')]
