@@ -4,7 +4,7 @@ from cgi import parse_qs, escape
 from hashlib import sha1
 
 # 解析微信的xml格式的handler
-from wechatXML import *
+from parseWechatXML.wechatXmlHandler import *
 
 import time
         
