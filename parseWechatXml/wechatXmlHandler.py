@@ -53,8 +53,7 @@ class WechatXmlHandler(handler.ContentHandler):
                 # 所以我在这里检查它是否是空，仅当是空才处理
                 
                 # print(text)这个会异常，而print(text.encode('utf-8'))不会异常，这个和文档中下面所描述的不同，想不通为什么
-                # To print or display some strings properly, they need to be decoded (Unicode strings).
-                
+                # To print or display some strings properly, they need to be decoded (Unicode strings).                
                 
                 self.content_[current]=text
             
