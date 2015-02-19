@@ -73,26 +73,26 @@ def app(environ, start_response):
         # <Content><![CDATA[你好]]></Content>
         # </xml>
         
-        reply=( '<xml>'
-                '<ToUserName><![CDATA[{0}]]></ToUserName>'
-                '<FromUserName><![CDATA[{1}]]></FromUserName>'
-                '<CreateTime>{2}</CreateTime>'
-                '<MsgType><![CDATA[text]]></MsgType>'
-                '<Content><![CDATA[{3}]]></Content>'
-                '</xml>' )
+        reply=( u'<xml>'
+                u'<ToUserName><![CDATA[{0}]]></ToUserName>'
+                u'<FromUserName><![CDATA[{1}]]></FromUserName>'
+                u'<CreateTime>{2}</CreateTime>'
+                u'<MsgType><![CDATA[text]]></MsgType>'
+                u'<Content><![CDATA[{3}]]></Content>'
+                u'</xml>' )
 
         # 中文导致异常？
         # rtext='hello world!'
         # if(hdl.content_['Content']=='我是宁宁'):
         #     rtext='我是宋伟'
-        rtext=hdl.content_['Content']
+        rtext=hdl.content_['Content'].decode('utf-8')
         
-        reply=reply.format(hdl.content_['FromUserName'],hdl.content_['ToUserName'],int(time.time()),rtext)
+        reply=reply.format(hdl.content_['FromUserName'].decode('utf-8'),hdl.content_['ToUserName'].decode('utf-8'),int(time.time()),rtext)
         
         # 指定为xml，并且指定为utf-8编码，以防止乱码
         headers = [('Content-type', 'text/xml')]
         start_response(status, headers)
-        return [reply]
+        return [reply.encode('utf-8')]
         
     # 下面的调试代码能够将environ中的所有的键值对都输出，仅用于调试目的
     body=[str(environ)]
