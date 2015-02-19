@@ -85,9 +85,9 @@ def app(environ, start_response):
         # rtext='hello world!'
         # if(hdl.content_['Content']=='我是宁宁'):
         #     rtext='我是宋伟'
-        rtext=hdl.content_['Content'].decode('utf-8')
+        rtext=hdl.content_['Content']
         
-        reply=reply.format(hdl.content_['FromUserName'].decode('utf-8'),hdl.content_['ToUserName'].decode('utf-8'),int(time.time()),rtext)
+        reply=reply.format(hdl.content_['FromUserName'],hdl.content_['ToUserName'],int(time.time()),rtext)
         
         # 指定为xml，并且指定为utf-8编码，以防止乱码
         headers = [('Content-type', 'text/xml')]
