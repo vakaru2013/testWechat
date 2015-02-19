@@ -52,8 +52,7 @@ class WechatXmlHandler(handler.ContentHandler):
                 # 通过测试发现，微信的这个xml的格式是非常不标准的，因为一个element可能多次出来character，当然后面的是空的。
                 # 所以我在这里检查它是否是空，仅当是空才处理
                 
-                # 如果要print，需要用unicode，因为如果是8-bit的字符串，系统不一定知道它所使用的codec是什么
-                print(text)
+                # print(text)这个会异常，而print(text.encode('utf-8'))不会异常，这个和文档中下面所描述的不同，想不通为什么
                 # To print or display some strings properly, they need to be decoded (Unicode strings).
                 
                 
