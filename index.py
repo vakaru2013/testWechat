@@ -81,15 +81,18 @@ def app(environ, start_response):
                 u'<Content><![CDATA[{3}]]></Content>'
                 u'</xml>' )
 
-        # 中文导致异常？
         # rtext='hello world!'
         # if(hdl.content_['Content']=='我是宁宁'):
         #     rtext='我是宋伟'
         rtext=hdl.content_['Content']
-        
+
+        # 中文导致异常？
+        # 因为wsgi给出来的已经是Python的unicode字符串了，假如前面的reply变量字符串不是unicode而是Python的8bit的字符串，
+        # 那么这里的format函数就会要把参数encode为8bit的字符串，用默认的ASCII codec，ASCII codec不认识中文字符，所以异常。
+        # 如果reply是unicode字符串，就不需要encode，就不会异常了，
         reply=reply.format(hdl.content_['FromUserName'],hdl.content_['ToUserName'],int(time.time()),rtext)
         
-        # 指定为xml，并且指定为utf-8编码，以防止乱码
+        # 指定为xml，消息体为utf-8编码，
         headers = [('Content-type', 'text/xml')]
         start_response(status, headers)
         return [reply.encode('utf-8')]
