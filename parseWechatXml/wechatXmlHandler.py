@@ -53,7 +53,7 @@ class WechatXmlHandler(handler.ContentHandler):
                 # 所以我在这里检查它是否是空，仅当是空才处理
                 
                 # 如果要print，需要用unicode，因为如果是8-bit的字符串，系统不一定知道它所使用的codec是什么
-                print text.encode('utf-8')
+                print(text)
                 # To print or display some strings properly, they need to be decoded (Unicode strings).
                 
                 
