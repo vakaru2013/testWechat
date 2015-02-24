@@ -4,6 +4,8 @@
 # hdl=WechatXmlHandler()
 # parse('test.xml',hdl)
 
+# !!!!!!!!!!!!!!WechatXmlHandler对象的属性变量中的字符串都是unicode类型的!!!!!!!!!!!!!
+
 from xml.sax import *
 
 import logging
@@ -31,18 +33,21 @@ class WechatXmlHandler(handler.ContentHandler):
         # </xml>
 
         self.current_=name
+
+# 通过日志说明了startElement method的 name参数是unicode的字符串对象!!!!!!!!!!!!!!!!!!!!!!!!!!
         
-        if isinstance(name,str):
-            logger.debug('name argument of startElement method of handler.ContentHandler is 8 bit string.')
-        if isinstance(name,unicode):
-            logger.debug('name argument of startElement method of handler.ContentHandler is unicode string.')
+        # if isinstance(name,str):
+        #     logger.debug('name argument of startElement method of handler.ContentHandler is 8 bit string.')
+        # if isinstance(name,unicode):
+        #     logger.debug('name argument of startElement method of handler.ContentHandler is unicode string.')
         
     def characters(self,content):
-        
-        if isinstance(content,str):
-            logger.debug('content argument of characters method of handler.ContentHandler is 8 bit string.')
-        if isinstance(content,unicode):
-            logger.debug('content argument of characters method of handler.ContentHandler is unicode string.')
+
+# 通过日志说明了 characters method的 content 参数是unicode的字符串对象!!!!!!!!!!!!!!!!!!!!!!!!!!        
+        # if isinstance(content,str):
+        #     logger.debug('content argument of characters method of handler.ContentHandler is 8 bit string.')
+        # if isinstance(content,unicode):
+        #     logger.debug('content argument of characters method of handler.ContentHandler is unicode string.')
         
         # 通过测试发现，微信的这个xml的格式是非常不标准的，因为一个element可能多次出来character，当然后面的是空的。
         # 并且不知道为什么，用parsePlain就能够直接得到想要的内容
@@ -58,6 +63,7 @@ class WechatXmlHandler(handler.ContentHandler):
                 # 所以我在这里检查它是否是空，仅当是空才处理
                 
                 # print(text)这个会异常，而print(text.encode('utf-8'))不会异常，这个和文档中下面所描述的不同，想不通为什么
+                # 按道理print一个unicode类型的字符串应该不会异常才对啊。
                 # To print or display some strings properly, they need to be decoded (Unicode strings).                
                 
                 self.content_[current]=text
