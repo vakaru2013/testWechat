@@ -32,6 +32,11 @@ class WechatXmlHandler(handler.ContentHandler):
 
         self.current_=name
         
+        if isinstance(name,str):
+            logger.debug('name argument of startElement method of handler.ContentHandler is 8 bit string.')
+        if isinstance(name,unicode):
+            logger.debug('name argument of startElement method of handler.ContentHandler is unicode string.')
+        
     def characters(self,content):
         
         if isinstance(content,str):
