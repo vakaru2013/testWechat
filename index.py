@@ -7,8 +7,12 @@ from hashlib import sha1
 from parseWechatXml.wechatXmlHandler import *
 
 import time
+
+from bae.api import logging
+logger=logging.getLogger(__name__)
         
 def app(environ, start_response):
+    
     status = '200 OK'
     headers = [('Content-type', 'text/plain')]
     
@@ -48,7 +52,10 @@ def app(environ, start_response):
             request_body_size = 0
             
         # 这就是微信发来的消息的消息体
+        logger.debug('request body size: %d', request_body_size)
         request_body=environ['wsgi.input'].read(request_body_size)
+        logger.debug(request_body)
+        
         # <xml>
         # <ToUserName><![CDATA[toUser]]></ToUserName>
         # <FromUserName><![CDATA[fromUser]]></FromUserName> 
