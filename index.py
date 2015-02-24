@@ -60,6 +60,11 @@ def app(environ, start_response):
         request_body=environ['wsgi.input'].read(request_body_size)
         logger.debug(request_body)
         
+        if isinstance(request_body,str):
+            logger.debug('request_body is 8 bit string.')
+        if isinstance(request_body,unicode):
+            logger.debug('request_body is unicode string.')
+        
         # <xml>
         # <ToUserName><![CDATA[toUser]]></ToUserName>
         # <FromUserName><![CDATA[fromUser]]></FromUserName> 
