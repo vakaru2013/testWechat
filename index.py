@@ -8,7 +8,7 @@ from parseWechatXml.wechatXmlHandler import *
 
 import time
 
-from bae.api import logging
+import logging
 logger=logging.getLogger(__name__)
         
 def app(environ, start_response):
