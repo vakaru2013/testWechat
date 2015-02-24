@@ -9,7 +9,16 @@ from parseWechatXml.wechatXmlHandler import *
 import time
 
 import logging
+from bae_log import handlers
+handler = handlers.BaeLogHandler(ak = "2p3CYGACdPhU1wXMRpsZXzdG", sk = "lGL8Kshw073T6Yspb9SV9zzsS4FGELAh", bufcount = 256)
 logger=logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger.addHandler(handler)
+logger.debug("debug message")
+logger.info("info message")
+logger.warning("warning message")
+logger.fatal("fatal message")
+logger.log(12, "trace message")
         
 def app(environ, start_response):
     
