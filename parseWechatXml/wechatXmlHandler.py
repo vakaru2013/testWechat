@@ -1,6 +1,17 @@
 #-*- coding:utf-8 -*-
 
+# 该文件提供WechatXmlHandler类，它的实例可以喝xml.sax.parse函数一起使用，如下
+# hdl=WechatXmlHandler()
+# parse('test.xml',hdl)
+
 from xml.sax import *
+
+import logging
+from bae_log import handlers
+handler = handlers.BaeLogHandler(ak = "2p3CYGACdPhU1wXMRpsZXzdG", sk = "lGL8Kshw073T6Yspb9SV9zzsS4FGELAh", bufcount = 1)
+logger=logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger.addHandler(handler)
 
 class WechatXmlHandler(handler.ContentHandler):
     
@@ -17,27 +28,15 @@ class WechatXmlHandler(handler.ContentHandler):
         # <Content><![CDATA[this is a test]]></Content>
         # <MsgId>1234567890123456</MsgId>
         # </xml>
-        
-        # 我要用字典来替代if else的用法，但在这个函数里，连字典都不需要
-        # if(name=="ToUserName"):
-        #     self.current_='ToUserName'
-        # else if(name=="FromUserName"):
-        #     self.current_='FromUserName'
-        # else if(name=="CreateTime"):
-        #     self.current_='CreateTime'
-        # else if(name=="MsgType"):
-        #     self.current_='MsgType'
-        # else if(name=="Content"):
-        #     self.current_='Content'
-        # else if(name=="MsgId"):
-        #     self.current_='MsgId'
-        # else
-        #     self.current_=''
 
         self.current_=name
         
     def characters(self,content):
         
+        if isinstance(content,str):
+            logger.debug('content argument of characters method of handler.ContentHandler is 8 bit string.')
+        if isinstance(content,unicode):
+            logger.debug('content argument of characters method of handler.ContentHandler is unicode string.')
         
         # 通过测试发现，微信的这个xml的格式是非常不标准的，因为一个element可能多次出来character，当然后面的是空的。
         # 并且不知道为什么，用parsePlain就能够直接得到想要的内容
