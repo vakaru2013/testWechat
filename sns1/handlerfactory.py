@@ -16,7 +16,8 @@ def getHandlerForUser(xmlDict):
     handlerMap={
         # 这是处理初始状态的handler
         commondef.initState : HandlerForInitState(userid),
-        commondef.toRecvIntroState : HandlerForIntroState(userid,xmlDict[u'Content'])
+        commondef.toRecvIntroState : HandlerForIntroState(userid,xmlDict[u'Content']),
+        commondef.toRecvCmdState : HandlerForCmdState(userid,xmlDict[u'Content'])
     }
 
     handler=handlerMap.get(state)
