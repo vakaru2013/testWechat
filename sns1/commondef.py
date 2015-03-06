@@ -1,7 +1,7 @@
 # coding=utf-8
 
 import baelogging
-logger=getLogger(__name__)
+logger=baelogging.getLogger(__name__)
 
 from baeredis import redisConn
 
