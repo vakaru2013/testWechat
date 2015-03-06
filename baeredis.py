@@ -17,4 +17,4 @@ def connectRedis():
     return r
     
 # 给其他模块提供下面这个对象redisConn
-redisConn=baeredis.connectRedis()
+redisConn=connectRedis()
