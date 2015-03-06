@@ -7,7 +7,7 @@ import commondef
 # xmlDict是字典，xml中的每个element的名字都是一个key，element的text是对应的value
 def onRecvMsg(xmlDict):
     userid=xmlDict[u'FromUserName']
-    handler=getHandlerForUser(userid)
+    handler=getHandlerForUser(xmlDict)
     if handler==None:
         return commondef.msgError
     handler.push()

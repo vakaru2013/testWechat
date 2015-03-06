@@ -11,7 +11,7 @@ api_key = "2p3CYGACdPhU1wXMRpsZXzdG"
 secret_key = "lGL8Kshw073T6Yspb9SV9zzsS4FGELAh"
 myauth = "%s-%s-%s"%(api_key, secret_key, db_name)
 
-### 连接redis服务
+### 连接redis服务，这个函数仅作为模块的内部使用
 def connectRedis():
     r = redis.Redis(host = "redis.duapp.com", port = 80, password = myauth)
     return r
