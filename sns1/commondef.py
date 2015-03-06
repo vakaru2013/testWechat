@@ -9,11 +9,11 @@ from baeredis import redisConn
 
 # 下面是根据用户的id组装'在redis数据库存储用户状态的key'的函数
 def makeUserStateKey(userid):
-    return 'userState-%d' % userid
+    return 'userState-%s' % userid
     
 # 下面是根据用户的id组装'在redis数据库存储用户自我介绍的key'的函数
 def makeUserIntroKey(userid):
-    return 'userIntro-%d' % userid
+    return 'userIntro-%s' % userid
 
 # 下面是用户所处的状态的值，是一些字符串常量：
 initState='init'
