@@ -46,12 +46,12 @@ def setUserState(userid,state):
 # 输入输出都是unicode字符串
 def getUserIntro(userid):
     key=makeUserIntroKey(userid)
-    intro=redisConn.get(key.encode('uft-8'))
+    intro=redisConn.get(key.encode('utf-8'))
     return intro.decode('utf-8')
     
 # 这个函数在redis数据库中设置用户的自我介绍
 # 输入都是unicode字符串
 def setUserIntro(userid,intro):
     key=makeUserIntroKey(userid)
-    redisConn.set(key.encode('uft-8'),intro.encode('uft-8'))
+    redisConn.set(key.encode('utf-8'),intro.encode('utf-8'))
     
