@@ -13,7 +13,7 @@ logger=baelogging.getLogger(__name__)
 
 from baeredis import redisConn
 
-from onrecvmsg import onRecvMsg
+from sns1.onrecvmsg import onRecvMsg
 
 # environ被假定是一个GET消息的environ。
 # 这个函数返回TRUE表示发来的是微信用来验证接口的echo消息，否则返回FALSE
