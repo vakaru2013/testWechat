@@ -1,1 +1,2 @@
 bae_log
+redis

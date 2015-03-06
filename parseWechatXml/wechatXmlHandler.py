@@ -8,13 +8,8 @@
 
 from xml.sax import *
 
-import logging
-from bae_log import handlers
-
-loghandler = handlers.BaeLogHandler(ak = "2p3CYGACdPhU1wXMRpsZXzdG", sk = "lGL8Kshw073T6Yspb9SV9zzsS4FGELAh", bufcount = 1)
-logger=logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-logger.addHandler(loghandler)
+import baelogging
+logger=baelogging.getLogger(__name__)
 
 class WechatXmlHandler(handler.ContentHandler):
     
