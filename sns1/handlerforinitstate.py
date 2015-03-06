@@ -21,4 +21,4 @@ class HandlerForInitState:
         else:
             # 用户已经有自我介绍了，要求用户发送命令
             self.state=commondef.toRecvCmdState
-            self.rtext=commondef.msgWaitForCmd
+            self.rtext=commondef.msgWaitForCmd % intro
