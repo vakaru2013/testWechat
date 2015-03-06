@@ -7,6 +7,7 @@ logger=baelogging.getLogger(__name__)
 
 from handlerforinitstate import HandlerForInitState
 from handlerforintrostate import HandlerForIntroState
+from handlerforcmdstate import HandlerForCmdState
 
 # 这个函数返回一个handler，也可能发生错误返回的是None，handler的push函数以及两个属性是需要关心的。
 def getHandlerForUser(xmlDict):
