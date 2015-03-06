@@ -19,4 +19,7 @@ def getHandlerForUser(userid):
     if handler==None:
         # 有意外发生，记录日志
         logger.debug('current state is %s, error hanppen in getHandlerForUser', state)
+        # 重置用户的状态
+        logger.debug('state has been reset in getHandlerForUser')
+        commondef.setUserState(userid,commondef.initState)
     return handler
