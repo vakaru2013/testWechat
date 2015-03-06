@@ -28,5 +28,6 @@ class HandlerForCmdState:
             self.rtext=commondef.msgWaitForIntro
         else:
             self.state=commondef.toRecvCmdState
-            self.rtext=commondef.msgWaitForCmd % self.intro
+            intro=commondef.getUserIntro(self.userid)
+            self.rtext=commondef.msgWaitForCmd % intro
     
