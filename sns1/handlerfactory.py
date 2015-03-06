@@ -12,7 +12,7 @@ def getHandlerForUser(userid):
     state=commondef.getUserState(userid)
     
     handlerMap={
-        commondef.initState : HandlerForInitState()
+        commondef.initState : HandlerForInitState(userid)
     }
 
     handler=handlerMap.get(state)
