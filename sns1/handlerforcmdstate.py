@@ -20,8 +20,12 @@ class HandlerForCmdState:
             self.rtext=commondef.msgWaitForIntro
         elif self.cmd==u'2':
             # 用户想要查看其他用户的资料
+            self.state=commondef.toRecvIntro
+            self.rtext=commondef.msgWaitForIntro
         elif self.cmd==u'3':
             # 用户想要检查收件箱
+            self.state=commondef.toRecvIntro
+            self.rtext=commondef.msgWaitForIntro
         else:
             self.state=commondef.toRecvCmdState
             self.rtext=commondef.msgWaitForCmd % self.intro
