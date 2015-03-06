@@ -13,7 +13,7 @@ class HandlerForInitState:
         
     # push函数可以决定用户在服务器中的下一个状态，并组装一个响应给客户端的文本
     def push(self):
-        intro=commondef.getUserIntro(userid)
+        intro=commondef.getUserIntro(self.userid)
         if intro==None:
             # 要求用户发送自我介绍
             self.state=commondef.toRecvIntroState
