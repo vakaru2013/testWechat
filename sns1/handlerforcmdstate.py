@@ -16,15 +16,15 @@ class HandlerForCmdState:
     def push(self):
         if self.cmd==u'1':
             # 用户想要修改自我介绍
-            self.state=commondef.toRecvIntro
+            self.state=commondef.toRecvIntroState
             self.rtext=commondef.msgWaitForIntro
         elif self.cmd==u'2':
             # 用户想要查看其他用户的资料
-            self.state=commondef.toRecvIntro
+            self.state=commondef.toRecvIntroState
             self.rtext=commondef.msgWaitForIntro
         elif self.cmd==u'3':
             # 用户想要检查收件箱
-            self.state=commondef.toRecvIntro
+            self.state=commondef.toRecvIntroState
             self.rtext=commondef.msgWaitForIntro
         else:
             self.state=commondef.toRecvCmdState
