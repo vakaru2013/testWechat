@@ -13,6 +13,7 @@ logger=baelogging.getLogger(__name__)
 
 from baeredis import redisConn
 
+from onrecvmsg import onRecvMsg
 
 # environ被假定是一个GET消息的environ。
 # 这个函数返回TRUE表示发来的是微信用来验证接口的echo消息，否则返回FALSE
@@ -92,9 +93,9 @@ def app(environ, start_response):
         # 解析xml
         hdl=parseWechatXml(environ)
         
-        # input是一个字典
-        input=hdl.content_
-            
+        # 下面是一个字典，xml中的每个element的名字是一个key，element的text是value
+        # key和value都是unicode的字符串
+        xmlDict=hdl.content_
         
         # 解析出消息的内容
         # 编辑回复消息文本，回复
@@ -114,14 +115,15 @@ def app(environ, start_response):
                 u'<Content><![CDATA[{3}]]></Content>'
                 u'</xml>' )
 
-        rtext=hdl.content_[u'Content']
+        # 下面组装rtext，即要回复的文本
+        rtext=onRecvMsg(xmlDict)
 
         # 中文导致异常？
         # wsgi.input通过read函数给出来的是Python的8bit字符串，但是wechatXmlHandler对象中存储的字符串对象是unicode类型的对象。
         # 假如前面的reply变量字符串不是unicode而是Python的8bit的字符串，
         # 那么这里的format函数就会要把参数encode为8bit的字符串，用默认的ASCII codec，ASCII codec不认识中文字符，所以异常。
         # 如果reply是unicode字符串，就不需要encode，就不会异常了，
-        reply=reply.format(hdl.content_[u'FromUserName'],hdl.content_[u'ToUserName'],int(time.time()),rtext)
+        reply=reply.format(xmlDict[u'FromUserName'],xmlDict[u'ToUserName'],int(time.time()),rtext)
         
         # 指定为xml，消息体为utf-8编码，
         headers = [('Content-type', 'text/xml')]
