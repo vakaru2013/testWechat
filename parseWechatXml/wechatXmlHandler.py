@@ -20,7 +20,7 @@ class WechatXmlHandler(handler.ContentHandler):
     def startElement(self,name,attrs):
         # <xml>
         # <ToUserName><![CDATA[toUser]]></ToUserName>
-        # <FromUserName><![CDATA[fromUser]]></FromUserName> 
+        # <FromUserName><![CDATA[fromUser]]></FromUserName>
         # <CreateTime>1348831860</CreateTime>
         # <MsgType><![CDATA[text]]></MsgType>
         # <Content><![CDATA[this is a test]]></Content>
